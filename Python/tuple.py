@@ -1,0 +1,6 @@
+t1=('ki',1,2,3.3,'n','S')     
+print(t1[0])
+print(t1[4])
+print(t1[-2])
+print(t1[1:4])
+print(t1)
