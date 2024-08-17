@@ -33,6 +33,7 @@ middleware ref -
 */
 
 //EJS using Express.js
+//ejs ref - https://github.com/mde/ejs/wiki/Using-EJS-with-Express
 //configuring 'view engine' as 'ejs'
 app.set('view engine', 'ejs');
 
