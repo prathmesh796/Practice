@@ -10,6 +10,28 @@ const port = 3000
 app.use(express.static('public'))
 app.use('/blog', blogs)
 
+//Middlewares in Express js
+// Middleware functions are functions that have access to the request object (req), the response object (res), and the next function in the application’s request-response cycle. The next function is a function in the Express router which, when invoked, executes the middleware succeeding the current middleware.
+const myLogger = function (req, res, next) {
+    console.log('LOGGED')
+    next()
+}
+
+app.use(myLogger)
+
+//this middleware can be also created as :
+// app.use((req, res, next) =>  {
+//     console.log('LOGGED')
+//     next()
+// })
+
+//we can create as many middleware as we want
+/*
+middleware ref - 
+1. https://expressjs.com/en/guide/writing-middleware.html
+2. https://expressjs.com/en/guide/using-middleware.html
+*/
+
 //syntax - app.get(path, handler)
 app.get('/', (req, res) => {
     res.send('Hello World!, hi ')
@@ -73,7 +95,7 @@ this will also work same
 //rendering html files
 app.get('/home', (req, res) => {
     console.log("this is rendering of home.html")
-    res.sendFile('templates/home.html', {root: __dirname})
+    res.sendFile('templates/home.html', { root: __dirname })
 })
 
 
