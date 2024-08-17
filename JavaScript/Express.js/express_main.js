@@ -32,6 +32,10 @@ middleware ref -
 2. https://expressjs.com/en/guide/using-middleware.html
 */
 
+//EJS using Express.js
+//configuring 'view engine' as 'ejs'
+app.set('view engine', 'ejs');
+
 //syntax - app.get(path, handler)
 app.get('/', (req, res) => {
     res.send('Hello World!, hi ')
@@ -96,6 +100,13 @@ this will also work same
 app.get('/home', (req, res) => {
     console.log("this is rendering of home.html")
     res.sendFile('templates/home.html', { root: __dirname })
+})
+
+//EJS rendering
+app.get('/testejs', (req, res) => {
+    //res.send('Hello World!, hi ')
+    let v = "prathmesh"
+    res.render('index', {foo: 'FOO', name: v})
 })
 
 
