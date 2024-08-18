@@ -3,6 +3,17 @@
 const express = require('express')
 const blogs = require('./routes/blog.js')
 
+//working with mongoose
+const mongoose = require('mongoose')
+const Todo = require('./models/todo.js')
+
+main().catch(err => console.log(err))
+
+async function main() {
+    const con = mongoose.connect('mongodb://localhost:27017/todo')
+    
+}
+
 const app = express()
 const port = 3000
 
@@ -108,6 +119,17 @@ app.get('/testejs', (req, res) => {
     //res.send('Hello World!, hi ')
     let v = "prathmesh"
     res.render('index', {foo: 'FOO', name: v})
+})
+
+//using models of mongodb
+app.get('/tododb', (req, res) => {
+    const todo = new Todo({
+        title: "task #1",
+        desc: "passing the engg..",
+        isDone: false
+    })
+    todo.save()
+    res.send('Hello World!, hi ')
 })
 
 
