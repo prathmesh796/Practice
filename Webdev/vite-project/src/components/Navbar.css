@@ -1,0 +1,11 @@
+ul, li{
+    display: flex;
+    gap: 30px;
+}
+
+.Navbar{
+    display: flex;
+    background-color: beige;
+    height: 5vh;
+    
+}

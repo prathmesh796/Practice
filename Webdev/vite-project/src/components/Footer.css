@@ -1,0 +1,14 @@
+.Footer{
+    position: fixed;
+    bottom: 0px;
+    display: flex;
+    position: fixed;
+    width: 100%;
+    gap: 100px;
+    align-items: center;
+    justify-content: center;
+}
+
+.social{
+    gap: 20px;
+}
