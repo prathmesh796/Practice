@@ -12,14 +12,20 @@ function App() {
 
   return (
     <>
-      <Navbar/>
+      <Navbar />
 
-      <Card title='card #1' description='this is first card'/>
-      <Card title='card #2' description='this is second card'/>
-      <Card title='card #3' description='this is third card'/>
-      <Card title='card #4' description='this is forth card'/>
+      <div className='cards'>
+        <Card title='card #1' description='this is first card' />
+        <Card title='card #2' description='this is second card' />
+        <Card title='card #3' description='this is third card' />
+        <Card title='card #4' description='this is forth card' />
+      </div>
 
-      <Footer/>
+
+      <p>The current value of count = {count}</p>
+      <button onClick={() => { setCount(count + 1) }}>update count</button>
+
+      <Footer />
     </>
   )
 }
