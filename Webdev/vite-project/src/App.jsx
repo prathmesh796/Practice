@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -9,10 +9,29 @@ import Footer from './components/Footer'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [color, setColor] = useState(0)
+
+  //effect for first time the page loads
+  useEffect(() => {
+    alert('app has been started')
+  })
+
+  //effect when page reloads every time
+  useEffect(() => {
+    alert('the has been loaded')
+  }, [])
+
+  //effect when count is changed/updated
+  useEffect(() => {
+    alert('the count been updated')
+    //setColor{color + 1}
+  }, [count])
+  
+  
 
   return (
     <>
-      <Navbar />
+      <Navbar color={'blue'} />
 
       <div className='cards'>
         <Card title='card #1' description='this is first card' />

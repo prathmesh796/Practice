@@ -1,9 +1,16 @@
 import React from 'react'
+import { useEffect, useState } from 'react'
 import './Navbar.css'
 
-const Navbar = () => {
+const Navbar = ({color}) => {
+  //const [color, setcolor] = useState({'red'})
+  useEffect(() => {
+    alert('color was changed')
+  }, [color])
+  
   return (
     <div className='Navbar'>
+      <p>the color of nav is {color}</p>
       <ul>
         <li>home</li>
         <li>about</li>
