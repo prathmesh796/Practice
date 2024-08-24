@@ -5,7 +5,7 @@ import './Navbar.css'
 const Navbar = ({color}) => {
   //const [color, setcolor] = useState({'red'})
   useEffect(() => {
-    alert('color was changed')
+    console.log('color was changed')
   }, [color])
   
   return (
