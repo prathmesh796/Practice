@@ -10,6 +10,8 @@ import Footer from './components/Footer'
 function App() {
   const [count, setCount] = useState(0)
   const [showbtn, setshowbtn] = useState(true)
+  const [text, settext] = useState("handling")
+  const [form, setform] = useState({"email": "", "phone": ""})
   const [color, setcolor] = useState([
     {
       'title': 'red',
@@ -57,7 +59,24 @@ function App() {
     console.log(a)
   }, [])
 
+  let handleClick = () => {
+    console.log("the event handling button is clicked")
+  }
 
+  let handleMouseOver = () => {
+    console.log("the is being hovered")
+  }
+
+  let handleChange = (e) => {
+    settext(e.target.value)
+    console.log("the is text is being changed")
+  }
+
+  let handleChangeForm = (e) =>{
+    setform({...form, [e.target.name]:e.target.value})
+    setform({...form, [e.target.value]:e.target.value}) //this will add new items in obj instead of updateing current ones
+    console.log(form)
+  }
 
   return (
     <>
@@ -84,11 +103,18 @@ function App() {
       {
         //rendering a list in react
       }
-      {
+      {/* {
         color.map(color => {
           return <Color color = {color}/>
         })
-      }
+      } */}
+
+      {/* {event handling in react} */}
+      <button onClick={handleClick}>event handling</button>
+      <div className="event" onMouseOver={handleMouseOver}>this is a event</div>
+      <input type="text" value={text} onChange={handleChange}/>
+      <input type="text" name="email" value={form.email} onChange={handleChangeForm}/>
+      <input type="text" name="phone" value={form.phone} onChange={handleChangeForm}/>
 
       <Footer />
     </>
