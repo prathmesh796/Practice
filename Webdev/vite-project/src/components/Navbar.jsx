@@ -2,6 +2,8 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import './Navbar.css'
 
+import { NavLink } from 'react-router-dom'
+
 const Navbar = ({color}) => {
   //const [color, setcolor] = useState({'red'})
   useEffect(() => {
@@ -12,9 +14,9 @@ const Navbar = ({color}) => {
     <div className='Navbar'>
       <p>the color of nav is {color}</p>
       <ul>
-        <li>home</li>
-        <li>about</li>
-        <li>contact</li>
+        <NavLink to="/">home</NavLink>
+        <NavLink to="/about">about</NavLink>
+        <NavLink to="/contact">contact</NavLink>
       </ul>
     </div>
   )

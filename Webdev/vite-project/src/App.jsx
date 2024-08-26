@@ -7,6 +7,7 @@ import Navbar from './components/Navbar'
 import Card from './components/Card'
 import Footer from './components/Footer'
 
+
 function App() {
   const [count, setCount] = useState(0)
   const [showbtn, setshowbtn] = useState(true)
