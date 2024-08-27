@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useContext } from 'react'
+import { counterContext } from './context/context'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -12,7 +13,7 @@ function App() {
   const [count, setCount] = useState(0)
   const [showbtn, setshowbtn] = useState(true)
   const [text, settext] = useState("handling")
-  const [form, setform] = useState({"email": "", "phone": ""})
+  const [form, setform] = useState({ "email": "", "phone": "" })
   const [color, setcolor] = useState([
     {
       'title': 'red',
@@ -73,51 +74,53 @@ function App() {
     console.log("the is text is being changed")
   }
 
-  let handleChangeForm = (e) =>{
-    setform({...form, [e.target.name]:e.target.value})
-    setform({...form, [e.target.value]:e.target.value}) //this will add new items in obj instead of updateing current ones
+  let handleChangeForm = (e) => {
+    setform({ ...form, [e.target.name]: e.target.value })
+    setform({ ...form, [e.target.value]: e.target.value }) //this will add new items in obj instead of updateing current ones
     console.log(form)
   }
 
   return (
     <>
-      <Navbar color={'blue'} />
+      <counterContext.Provider value={{count, setCount}}>
+        <Navbar color={'blue'} />
 
-      <div className='cards'>
-        <Card title='card #1' description='this is first card' />
-        <Card title='card #2' description='this is second card' />
-        <Card title='card #3' description='this is third card' />
-        <Card title='card #4' description='this is forth card' />
-      </div>
+        <div className='cards'>
+          <Card title='card #1' description='this is first card' />
+          <Card title='card #2' description='this is second card' />
+          <Card title='card #3' description='this is third card' />
+          <Card title='card #4' description='this is forth card' />
+        </div>
 
 
-      <p>The current value of count = {count}</p>
-      <button onClick={() => { setCount(count + 1); setshowbtn(!showbtn) }}>update count</button>
+        <p>The current value of count = {count}</p>
+        <button onClick={() => { setCount(count + 1); setshowbtn(!showbtn) }}>update count</button>
 
-      {
-        //conditional rendering in react
-      }
-      {showbtn ? <button>showbtn is true</button> : <button>showbtn is false</button>}
+        {
+          //conditional rendering in react
+        }
+        {showbtn ? <button>showbtn is true</button> : <button>showbtn is false</button>}
 
-      {showbtn && <button>showbtn is true</button>}
+        {showbtn && <button>showbtn is true</button>}
 
-      {
-        //rendering a list in react
-      }
-      {/* {
+        {
+          //rendering a list in react
+        }
+        {/* {
         color.map(color => {
           return <Color color = {color}/>
         })
       } */}
 
-      {/* {event handling in react} */}
-      <button onClick={handleClick}>event handling</button>
-      <div className="event" onMouseOver={handleMouseOver}>this is a event</div>
-      <input type="text" value={text} onChange={handleChange}/>
-      <input type="text" name="email" value={form.email} onChange={handleChangeForm}/>
-      <input type="text" name="phone" value={form.phone} onChange={handleChangeForm}/>
+        {/* {event handling in react} */}
+        <button onClick={handleClick}>event handling</button>
+        <div className="event" onMouseOver={handleMouseOver}>this is a event</div>
+        <input type="text" value={text} onChange={handleChange} />
+        <input type="text" name="email" value={form.email} onChange={handleChangeForm} />
+        <input type="text" name="phone" value={form.phone} onChange={handleChangeForm} />
 
-      <Footer />
+        <Footer />
+      </counterContext.Provider>
     </>
   )
 }
