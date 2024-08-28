@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useContext } from 'react'
+import { useEffect, useState, useRef, useContext, useMemo } from 'react'
 import { counterContext } from './context/context'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -8,6 +8,12 @@ import Navbar from './components/Navbar'
 import Card from './components/Card'
 import Footer from './components/Footer'
 
+const nums = new Array(30_000_000).fill(0).map((_, i) => {
+  return {
+    index : i,
+    isMagical: i === 29_000_000
+  }
+})
 
 function App() {
   const [count, setCount] = useState(0)
@@ -28,6 +34,10 @@ function App() {
       'desc': 'i am green color'
     }
   ])
+
+  const [numbers, setnumbers] = useState(nums)
+  //const magical = numbers.find(item => item.isMagical === true) //very expensive computation
+  const magical = useMemo(() => numbers.find(item => item.isMagical === true), [numbers])
 
   const Color = ({ color }) => {
     return (<>
@@ -94,7 +104,18 @@ function App() {
 
 
         <p>The current value of count = {count}</p>
-        <button onClick={() => { setCount(count + 1); setshowbtn(!showbtn) }}>update count</button>
+        <button onClick={() => { 
+          setCount(count + 1); 
+          setshowbtn(!showbtn);
+          if(count % 7 === 0){
+            setnumbers(new Array(10_000_000).fill(0).map((_, i) => {
+              return {
+                index: i,
+                isMagical: i === 9_000_000
+              }
+            }));
+          } 
+        }}>update count</button>
 
         {
           //conditional rendering in react
@@ -119,6 +140,9 @@ function App() {
         <input type="text" name="email" value={form.email} onChange={handleChangeForm} />
         <input type="text" name="phone" value={form.phone} onChange={handleChangeForm} />
 
+        <div className="magical">
+          the magical number is {magical.index}
+        </div>
         <Footer />
       </counterContext.Provider>
     </>
