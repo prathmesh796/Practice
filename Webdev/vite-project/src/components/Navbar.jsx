@@ -1,10 +1,11 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, memo } from 'react'
 import './Navbar.css'
 
 import { NavLink } from 'react-router-dom'
 
-const Navbar = ({color}) => {
+const Navbar = ({color, adjective, getadjective}) => {
+  console.log("navbar reander");
   //const [color, setcolor] = useState({'red'})
   useEffect(() => {
     console.log('color was changed')
@@ -12,7 +13,10 @@ const Navbar = ({color}) => {
   
   return (
     <div className='Navbar'>
-      <p>the color of nav is {color}</p>
+      <p>the color of nav is {color + adjective}</p>
+      <button onClick={() => {getadjective()}}>{color + adjective}</button>
+      
+      
       <ul>
         <NavLink to="/">home</NavLink>
         <NavLink to="/about">about</NavLink>
@@ -22,4 +26,4 @@ const Navbar = ({color}) => {
   )
 }
 
-export default Navbar
+export default memo(Navbar)

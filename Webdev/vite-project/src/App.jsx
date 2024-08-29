@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useContext, useMemo } from 'react'
+import { useEffect, useState, useRef, useContext, useMemo, useCallback } from 'react'
 import { counterContext } from './context/context'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -38,6 +38,15 @@ function App() {
   const [numbers, setnumbers] = useState(nums)
   //const magical = numbers.find(item => item.isMagical === true) //very expensive computation
   const magical = useMemo(() => numbers.find(item => item.isMagical === true), [numbers])
+
+  const [adjective, setadjective] = useState("good")
+
+  // const getadjective = () => {
+  //   return "another"
+  // }
+  const getadjective = useCallback(() => {
+    return "another good"
+  }, [])
 
   const Color = ({ color }) => {
     return (<>
@@ -93,7 +102,7 @@ function App() {
   return (
     <>
       <counterContext.Provider value={{count, setCount}}>
-        <Navbar color={'blue'} />
+        <Navbar color={'blue'} adjective={"goog"} getadjective={getadjective} />
 
         <div className='cards'>
           <Card title='card #1' description='this is first card' />
