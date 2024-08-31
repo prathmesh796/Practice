@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, useContext, useMemo, useCallback } from 'react'
+import { useForm } from "react-hook-form"
 import { counterContext } from './context/context'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -16,6 +17,37 @@ const nums = new Array(30_000_000).fill(0).map((_, i) => {
 })
 
 function App() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setError,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+  //const onSubmit = (data) => console.log(data)
+
+  const delay = (d) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve()
+      }, d * 1000);
+    })
+  }
+
+  const onSubmit = async (data) => {
+    //await delay(4) //simulating network delay
+
+    let r = fetch("http://localhost:3000", {method: "POST", headers: {"Content-type": "application/json"}, body: JSON.stringify(data)})
+    let res = await r.text
+
+    console.log(data, res)
+
+    if(data.username !== "prathmesh"){
+      setError("form", {message: "the username is not prathmesh"})
+    }
+  }
+
   const [count, setCount] = useState(0)
   const [showbtn, setshowbtn] = useState(true)
   const [text, settext] = useState("handling")
@@ -151,6 +183,25 @@ function App() {
 
         <div className="magical">
           the magical number is {magical.index}
+        </div>
+
+        <div className="forms">
+          <form action="" onSubmit={handleSubmit(onSubmit)}>
+            <input type="text" placeholder='username' {...register("username", { required: {value: true, message: "This field is required"}, minLength: {value: 3, message: "Min length 3 is required"}, maxLength: {value: 10, message: "Max lenght 10 is required"} })}/>
+            {errors.username && <span>{errors.username.message}</span>}
+            
+            <br />
+
+            <input type="text" placeholder='password' {...register ("password", { minLength: {value: 8, message: "minimum 8 characters are required"}})}/>
+            {errors.password && <span>{errors.password.message}</span>}
+
+            <br />
+
+            {isSubmitting && <div>Loading...</div>}
+            <input type="submit" value="Submit" disabled={isSubmitting}/>
+
+            {errors.form && <span>{errors.form.message}</span>}
+          </form>
         </div>
         <Footer />
       </counterContext.Provider>
