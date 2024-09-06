@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef, useContext, useMemo, useCallback } from 'react'
 import { useForm } from "react-hook-form"
 import { counterContext } from './context/context'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment } from './redux/counter/counterSlice'
 import './App.css'
 
 import Navbar from './components/Navbar'
@@ -47,6 +47,9 @@ function App() {
       setError("form", {message: "the username is not prathmesh"})
     }
   }
+
+  const count_redux = useSelector((state) => state.counter.value)
+  const dispatch = useDispatch()
 
   const [count, setCount] = useState(0)
   const [showbtn, setshowbtn] = useState(true)
@@ -203,6 +206,13 @@ function App() {
             {errors.form && <span>{errors.form.message}</span>}
           </form>
         </div>
+
+        <div className="redux">
+          <button onClick={() => dispatch(decrement())}>-</button>
+          {count_redux}
+          <button onClick={() => dispatch(increment())}>+</button>
+        </div>
+
         <Footer />
       </counterContext.Provider>
     </>
