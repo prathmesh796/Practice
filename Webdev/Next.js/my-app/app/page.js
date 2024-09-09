@@ -2,7 +2,11 @@
 import Image from "next/image";
 import Script from "next/script";
 
+import {submitAction} from "@/actions/form";
+import { useRef } from "react";
+
 export default function Home() {
+  //for this "use client" is required
   const handlePost = async() => {
     let data = {
       'name': 'prathmesh',
@@ -20,6 +24,13 @@ export default function Home() {
     console.log(res)
   }
 
+  //for this either use "use client" (at top) or "use server" (inside this function) but we will do this in our actions folder
+  // const submitAction = async (e) => {
+  //   //"use server"
+  //   console.log(e.get('Name'), e.get('Age'))
+  // }
+  let ref = useRef()
+
   return (
     <>
       <div>
@@ -33,6 +44,20 @@ export default function Home() {
       <div>
         <h3>post requests</h3>
         <button onClick={handlePost}>post</button>
+      </div>
+
+      <div>
+        <h3>Form handling</h3>
+
+        <form ref={ref} action={(e) => {{submitAction(e); ref.current.reset()}}}>
+          <label htmlFor="Name">Name</label>
+          <input type="text" name='Name' id='Name' className='border border-black' />
+          <br />
+          <label htmlFor="Age">Age</label>
+          <input type="text" name='Age' id='Age' className='border border-black' />
+          <br />
+          <button>submit</button>
+        </form>
       </div>
     </>
   );
