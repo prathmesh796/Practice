@@ -2,8 +2,12 @@
 import Image from "next/image";
 import Script from "next/script";
 
+import Link from 'next/link'
+
 import {submitAction} from "@/actions/form";
 import { useRef } from "react";
+
+
 
 export default function Home() {
   //for this "use client" is required
@@ -37,7 +41,7 @@ export default function Home() {
         hi, this is my first next.js app
         <Script>{`alert('scrpts')`}</Script>
         <div className="container">
-          <Image className='mx-auto' src='https://media-cdn.tripadvisor.com/media/photo-s/0c/bb/a3/97/predator-ride-in-the.jpg' width={100} height={100}/>
+          <Image className='mx-auto' src='https://media-cdn.tripadvisor.com/media/photo-s/0c/bb/a3/97/predator-ride-in-the.jpg' width={100} height={100} alt='sample'/>
         </div>
       </div>
 
@@ -58,6 +62,12 @@ export default function Home() {
           <br />
           <button>submit</button>
         </form>
+      </div>
+
+      <div>
+        <button>
+          <Link href="/signin">signIn</Link>
+        </button>
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import SessionWrapper from "@/components/SessionWrapper";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -23,13 +24,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Navbar/>
-        <div className="container mx-auto min-h-[87.8vh]">
-          {children}
-        </div>
-        <Footer/>
-      </body>
+      <SessionWrapper>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <Navbar />
+          <div className="container mx-auto min-h-[87.8vh]">
+            {children}
+          </div>
+          <Footer />
+        </body>
+      </SessionWrapper>
     </html>
   );
 }
