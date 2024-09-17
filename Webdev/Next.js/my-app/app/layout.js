@@ -27,7 +27,7 @@ export default function RootLayout({ children }) {
       <SessionWrapper>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
           <Navbar />
-          <div className="container mx-auto min-h-[87.8vh]">
+          <div className="container mx-auto min-h-screen">
             {children}
           </div>
           <Footer />
