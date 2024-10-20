@@ -69,6 +69,11 @@ export default function Home() {
           <Link href="/signin">signIn</Link>
         </button>
       </div>
+
+      <div>
+        {process.env.NEXT_PUBLIC_ID}
+        {process.env.NEXT_PUBLIC_PASSWORD}
+      </div>
     </>
   );
 }
