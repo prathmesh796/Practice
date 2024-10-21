@@ -7,7 +7,7 @@ import Link from 'next/link'
 import {submitAction} from "@/actions/form";
 import { useRef } from "react";
 
-
+import styles from "../styles/home.module.css"
 
 export default function Home() {
   //for this "use client" is required
@@ -73,6 +73,20 @@ export default function Home() {
       <div>
         {process.env.NEXT_PUBLIC_ID}
         {process.env.NEXT_PUBLIC_PASSWORD}
+      </div>
+
+      <div className={styles.sample}>
+        syles demonstration
+      </div>
+
+      <div>
+        <h1 className="container">styles jsx demonstration</h1>
+
+        <style jsx>{`
+          .container{
+            background-color: green;
+          }
+        `}</style>
       </div>
     </>
   );
