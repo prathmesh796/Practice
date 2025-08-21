@@ -6,6 +6,7 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { Link } from 'expo-router';
 
 export default function HomeScreen() {
   return (
@@ -24,6 +25,10 @@ export default function HomeScreen() {
       <View className='m-10'>
         <Text className='text-white'>Explore the world of React Native!</Text>
       </View>
+
+      <Link href="/about"><Text>Learn more about us</Text></Link>
+
+      <Link href="../movies/1"><Text>movie 1</Text></Link>
     </ParallaxScrollView>
   );
 }
