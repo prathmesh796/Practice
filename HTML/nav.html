@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Navigation Example</title>
+        <meta charset="UTF-8">
+
+        <style>
+            nav {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .links {
+                list-style-type: none;
+                display: flex;
+                gap: 15px;
+            }
+
+            @media (max-width: 768px) {
+                nav {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                .links {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                
+            }
+        </style>
+    </head>
+
+    <body>
+        <nav>
+            <div class="logo">Logo</div>
+
+            <ul class="links">
+                <li><a href="#">home</a></li>
+                <li><a href="#about">about</a></li>
+                <li><a href="#products">products</a></li>
+            </ul>
+
+            <input class="search" type="text" placeholder="search...">
+        </nav>
+    </body>
+</html>
