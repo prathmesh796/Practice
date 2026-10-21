@@ -1,162 +1,78 @@
 #include <iostream>
 #include <string.h>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
-class Graph
-{
-    char Vnames[10][10];
-    int cost[10][10], n;
+class DSU {
+    vector<int> parent, rank;
 
 public:
-    Graph();
-    void creat_graph();
-    void display();
-    int Position(char[]);
-    void kru();
+    DSU(int n) {
+        parent.resize(n);
+        rank.resize(n);
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
+            rank[i] = 1;
+        }
+    }
+
+    int find(int i) {
+        return (parent[i] == i) ? i : (parent[i] = find(parent[i]));
+    }
+
+    void unite(int x, int y) {
+        int s1 = find(x), s2 = find(y);
+        if (s1 != s2) {
+            if (rank[s1] < rank[s2]) parent[s1] = s2;
+            else if (rank[s1] > rank[s2]) parent[s2] = s1;
+            else parent[s2] = s1, rank[s1]++;
+        }
+    }
 };
 
-Graph::Graph()
-{
-    n = 0;
-    for (int i = 0; i < 10; i++)
-    {
-        for (int j = 0; j < 10; j++)
-        {
-            cost[i][j] = 999;
-        }
-    }
+bool comparator(vector<int> &a,vector<int> &b){
+   return a[2] < b[2]; 
 }
 
-void Graph::creat_graph()
-{
-    char ans, Start[10], End[10];
-    int wt, i, j;
-
-    cout << "Enter number of nodes";
-    cin >> n;
-
-    cout << "\n Enter vertex name:";
-    for (i = 0; i < n; i++)
-    {
-        cin >> Vnames[i];
-    }
-
-    do
-    {
-        cout << "\nEnter Start and end point of edge : ";
-        cin >> Start >> End;
-
-        cout << "Enter weight : ";
-        cin >> wt;
-
-        i = Position(Start);
-        j = Position(End);
-        cost[i][j] = cost[j][i] = wt;
-
-        cout << "\nDo you want to add more Edges? (y/n) : ";
-        cin >> ans;
-    } while (ans == 'y' || ans == 'Y');
-}
-
-void Graph::display()
-{
-    int i, j;
-    for (i = 0; i < n; i++)
-    {
-        cout << "\n";
-        for (j = 0; j < n; j++)
-        {
-            cout << "\t" << cost[i][j];
-        }
-    }
-}
-
-int Graph::Position(char key[10])
-{
-    for (int i = 0; i < n; i++)
-    {
-        if (strcmp(Vnames[i], key) == 0)
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-
-void Graph::kru()
-{
-    int i, j, x, y, Total_cost = 0, min, gr = 1, flag = 0, temp, v[10] = {0};
-    while (flag == 0)
-    {
-        min = 999;
-        for (i = 0; i < n; i++) // find the minimum edge
-        {
-            for (j = 0; j < n; j++)
-            {
-                if (cost[i][j] < min)
-                {
-                    min = cost[i][j];
-                    x = i;
-                    y = j;
-                } // end of if
-            }     // end inner for
-        }         // end of outer for
-
-        if (v[x] == 0 && v[y] == 0) // both are not visited
-        {
-            v[x] = v[y] = gr;
-            gr++;
-        }
-
-        else if (v[x] != 0 && v[y] == 0)
-        { 
-            v[y] = v[x]; 
-        }
-
-        else if (v[x] == 0 && v[y] != 0) 
-        {
-            v[x] = v[y]; 
-        }                
-            
-        else
-        {
-            if (v[x] != v[y]) // both belong to diffrent group
-            {
-                temp = v[x];
-                for (i = 0; i < n; i++)
-                {
-                    if (v[i] == temp)
-                    {
-                        v[i] = v[y];
-                    }
-                } 
-            }     
-        }  
-       
-        cost[x][y] = cost[y][x] = 999;
-        Total_cost = Total_cost + min;
-        cout << "\n" << Vnames[x] << " - " << Vnames[y] << " : " << min;
-        // print visit array after every step
-        temp = v[0];
-        flag = 1;
+int kruskalsMST(int V, vector<vector<int>> &edges) {
+    sort(edges.begin(), edges.end(),comparator);
+    
+    // Traverse edges in sorted order
+    DSU dsu(V);
+    int cost = 0, count = 0;
+    
+    for (auto &e : edges) {
+        int x = e[0], y = e[1], w = e[2];
         
-        for (i = 0; i < n; i++)
-        {
-            if (temp != v[i])
-            {
-                flag = 0;
-                break;
-            }
-        } // end of inner for
-    }     // end of while
-    cout << "\nTotal cost of tree=" << Total_cost;
+        // Make sure that there is no cycle
+        if (dsu.find(x) != dsu.find(y)) {
+            dsu.unite(x, y);
+            cost += w;
+            if (++count == V - 1) break;
+        }
+    }
+    return cost;
 }
 
-int main()
-{
-    Graph ob;
-    ob.creat_graph();
-    ob.display();
-    ob.kru();
+int main() {
+    cout << "Name: Prathmesh Ravindra Salunkhe" << endl;
+    cout << "Roll No.: 262240013" << endl;
+    int V, E;
+
+    cout << "Enter the number of vertices: ";
+    cin >> V;
+
+    cout << "Enter the number of edges: ";
+    cin >> E;
+
+    vector<vector<int>> edges(E, vector<int>(3));
+
+    cout << "Enter the edges (u, v, w): ";
+    for (int i = 0; i < E; i++) 
+        cin >> edges[i][0] >> edges[i][1] >> edges[i][2];
+
+    int mstCost = kruskalsMST(V, edges);
+    cout << "Cost of Minimum Spanning Tree: " << mstCost << endl;
 }
